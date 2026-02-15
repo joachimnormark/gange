@@ -45,11 +45,11 @@ html_code = """
         }
         .grid-line {
             stroke: #e0e0e0;
-            stroke-width: 2;
+            stroke-width: 1;
         }
         .rectangle {
             fill: rgba(66, 133, 244, 0.2);
-            stroke: #4285f4;
+            stroke: #FAF5C0;
             stroke-width: 3;
         }
         .corner {
