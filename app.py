@@ -37,11 +37,11 @@ html_code = """
             touch-action: none;
         }
         .grid-line {
-            stroke: #000000;
-            stroke-width: 2;
+            stroke: #e0e0e0;
+            stroke-width: 1;
         }
         .rectangle {
-            fill: #FAF5C0;
+            fill: rgba(250, 245, 192, 0.5);
             stroke: #4285f4;
             stroke-width: 3;
         }
@@ -66,6 +66,12 @@ html_code = """
             text-anchor: middle;
             pointer-events: none;
             user-select: none;
+        }
+        .text-background {
+            fill: white;
+            stroke: white;
+            stroke-width: 2;
+            pointer-events: none;
         }
         .area-text {
             font-size: 20px;
@@ -133,6 +139,15 @@ html_code = """
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         rect.setAttribute('class', 'rectangle');
         svg.appendChild(rect);
+
+        // Create text backgrounds (before text, so they're behind)
+        const widthTextBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        widthTextBg.setAttribute('class', 'text-background');
+        svg.appendChild(widthTextBg);
+
+        const heightTextBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        heightTextBg.setAttribute('class', 'text-background');
+        svg.appendChild(heightTextBg);
 
         // Create dimension text elements (after grid)
         const widthText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -224,27 +239,47 @@ html_code = """
             const w = Math.abs(rectangle.x2 - rectangle.x1);
             const h = Math.abs(rectangle.y2 - rectangle.y1);
             
-            // Update width text (bottom or top depending on position)
-            widthText.setAttribute('x', x + width / 2);
+            // Update width text and background (bottom or top depending on position)
+            const widthTextX = x + width / 2;
+            let widthTextY;
             if (rectangle.y2 === GRID_SIZE) {
                 // If at bottom edge, show above rectangle
-                widthText.setAttribute('y', y - 10);
+                widthTextY = y - 10;
             } else {
                 // Normal position below rectangle
-                widthText.setAttribute('y', y + height + 25);
+                widthTextY = y + height + 25;
             }
+            widthText.setAttribute('x', widthTextX);
+            widthText.setAttribute('y', widthTextY);
             widthText.textContent = w;
             
-            // Update height text (right or left side depending on position)
-            heightText.setAttribute('y', y + height / 2 + 5);
+            // Position width text background
+            widthTextBg.setAttribute('x', widthTextX - 15);
+            widthTextBg.setAttribute('y', widthTextY - 16);
+            widthTextBg.setAttribute('width', 30);
+            widthTextBg.setAttribute('height', 22);
+            widthTextBg.setAttribute('rx', 4);
+            
+            // Update height text and background (right or left side depending on position)
+            const heightTextY = y + height / 2 + 5;
+            let heightTextX;
             if (rectangle.x2 === GRID_SIZE) {
                 // If at right edge, show to the left of rectangle
-                heightText.setAttribute('x', x - 15);
+                heightTextX = x - 15;
             } else {
                 // Normal position to the right of rectangle
-                heightText.setAttribute('x', x + width + 25);
+                heightTextX = x + width + 25;
             }
+            heightText.setAttribute('x', heightTextX);
+            heightText.setAttribute('y', heightTextY);
             heightText.textContent = h;
+            
+            // Position height text background
+            heightTextBg.setAttribute('x', heightTextX - 15);
+            heightTextBg.setAttribute('y', heightTextY - 16);
+            heightTextBg.setAttribute('width', 30);
+            heightTextBg.setAttribute('height', 22);
+            heightTextBg.setAttribute('rx', 4);
             
             // Update area text (center)
             areaText.setAttribute('x', x + width / 2);
