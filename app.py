@@ -45,7 +45,7 @@ html_code = """
         }
         .grid-line {
             stroke: #e0e0e0;
-            stroke-width: 1;
+            stroke-width: 2;
         }
         .rectangle {
             fill: rgba(66, 133, 244, 0.2);
