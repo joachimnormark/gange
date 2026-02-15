@@ -37,8 +37,8 @@ html_code = """
             touch-action: none;
         }
         .grid-line {
-            stroke: #e0e0e0;
-            stroke-width: 1;
+            stroke: #000000;
+            stroke-width: 5;
         }
         .rectangle {
             fill: #FAF5C0;
