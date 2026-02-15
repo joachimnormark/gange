@@ -1,16 +1,9 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-st.set_page_config(page_title="Interaktivt Gitter", layout="wide")
+st.set_page_config(page_title="Gangemaskine", layout="wide")
 
-st.title("📐 Interaktivt Rektangel på 10×10 Gitter")
-st.markdown("""
-**Instruktioner:** 
-- Træk i de fire hjørnepunkter for at ændre størrelsen på rektanglet
-- Fungerer både med mus og touch
-- Sidelængder vises på siderne
-- Areal vises i midten
-""")
+st.title("✖️ Gangemaskine")
 
 # HTML og JavaScript komponent
 html_code = """
@@ -362,14 +355,3 @@ html_code = """
 
 # Vis komponenten
 components.html(html_code, height=700, scrolling=False)
-
-st.markdown("---")
-st.markdown("""
-### Funktioner:
-✅ **10×10 fast gitter** - Ternene ændrer aldrig størrelse  
-✅ **Kun heltal** - Punkterne kan kun placeres i gitterkryds  
-✅ **Kun rektangler** - Ingen diagonale eller skæve former  
-✅ **Automatisk begrænsning** - Kan ikke trække uden for 10×10 området  
-✅ **Touch-venlig** - Fungerer perfekt på tablets og smartphones  
-✅ **Live opdatering** - Sidelængder og areal opdateres øjeblikkeligt  
-""")
