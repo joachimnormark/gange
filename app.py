@@ -408,4 +408,4 @@ html_code = f"""
 """
 
 # Vis komponenten
-components.html(html_code, height=700, scrolling=False, key=f"grid_{grid_size}")
+components.html(html_code, height=700, scrolling=False)
