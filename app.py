@@ -5,6 +5,14 @@ st.set_page_config(page_title="Gangemaskine", layout="wide")
 
 st.title("✖️ Gangemaskine")
 
+# Vælger for grid-størrelse
+grid_size = st.selectbox(
+    "Vælg antal tern:",
+    options=[10, 20, 30],
+    index=0,
+    format_func=lambda x: f"{x}×{x} tern"
+)
+
 # HTML og JavaScript komponent
 html_code = """
 <!DOCTYPE html>
@@ -38,7 +46,7 @@ html_code = """
         }
         .grid-line {
             stroke: #e0e0e0;
-            stroke-width: 2;
+            stroke-width: 1;
         }
         .rectangle {
             fill: rgba(250, 245, 192, 0.5);
@@ -57,10 +65,8 @@ html_code = """
         }
         .corner.dragging {
             fill: #1a73e8;
-            r: 10;
         }
         .dimension-text {
-            font-size: 16px;
             font-weight: bold;
             fill: #333;
             text-anchor: middle;
@@ -74,7 +80,6 @@ html_code = """
             pointer-events: none;
         }
         .area-text {
-            font-size: 20px;
             font-weight: bold;
             fill: #4285f4;
             text-anchor: middle;
@@ -90,13 +95,19 @@ html_code = """
 
     <script>
         const SVG_SIZE = 600;
-        const GRID_SIZE = 10;
+        const GRID_SIZE = """ + str(grid_size) + """;
         const CELL_SIZE = SVG_SIZE / GRID_SIZE;
         
-        // State
+        // Scale text sizes based on grid size
+        const BASE_FONT_SIZE = GRID_SIZE === 10 ? 16 : (GRID_SIZE === 20 ? 12 : 10);
+        const AREA_FONT_SIZE = GRID_SIZE === 10 ? 20 : (GRID_SIZE === 20 ? 14 : 11);
+        const CORNER_RADIUS = GRID_SIZE === 10 ? 8 : (GRID_SIZE === 20 ? 6 : 5);
+        
+        // State - start med 5×5 rektangel centreret
+        const startOffset = Math.floor((GRID_SIZE - 5) / 2);
         let rectangle = {
-            x1: 2, y1: 2,  // Top-left
-            x2: 7, y2: 7   // Bottom-right (5×5 kvadrat)
+            x1: startOffset, y1: startOffset,
+            x2: startOffset + 5, y2: startOffset + 5
         };
         
         let dragState = {
@@ -152,14 +163,17 @@ html_code = """
         // Create dimension text elements (after grid)
         const widthText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         widthText.setAttribute('class', 'dimension-text');
+        widthText.setAttribute('font-size', BASE_FONT_SIZE);
         svg.appendChild(widthText);
 
         const heightText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         heightText.setAttribute('class', 'dimension-text');
+        heightText.setAttribute('font-size', BASE_FONT_SIZE);
         svg.appendChild(heightText);
 
         const areaText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         areaText.setAttribute('class', 'area-text');
+        areaText.setAttribute('font-size', AREA_FONT_SIZE);
         svg.appendChild(areaText);
 
         // Create corner circles (after grid)
@@ -173,7 +187,7 @@ html_code = """
         function createCorner(id) {
             const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
             circle.setAttribute('class', 'corner');
-            circle.setAttribute('r', '8');
+            circle.setAttribute('r', CORNER_RADIUS);
             circle.setAttribute('data-corner', id);
             svg.appendChild(circle);
             return circle;
@@ -253,12 +267,17 @@ html_code = """
             widthText.setAttribute('y', widthTextY);
             widthText.textContent = w;
             
+            // Calculate background sizes based on font size and number of digits
+            const bgPadding = GRID_SIZE === 10 ? 15 : (GRID_SIZE === 20 ? 13 : 11);
+            const bgWidth = GRID_SIZE === 10 ? 30 : (GRID_SIZE === 20 ? 28 : 26);
+            const bgHeight = GRID_SIZE === 10 ? 22 : (GRID_SIZE === 20 ? 18 : 16);
+            
             // Position width text background
-            widthTextBg.setAttribute('x', widthTextX - 15);
-            widthTextBg.setAttribute('y', widthTextY - 16);
-            widthTextBg.setAttribute('width', 30);
-            widthTextBg.setAttribute('height', 22);
-            widthTextBg.setAttribute('rx', 4);
+            widthTextBg.setAttribute('x', widthTextX - bgPadding);
+            widthTextBg.setAttribute('y', widthTextY - bgHeight + 6);
+            widthTextBg.setAttribute('width', bgWidth);
+            widthTextBg.setAttribute('height', bgHeight);
+            widthTextBg.setAttribute('rx', 3);
             
             // Update height text and background (right or left side depending on position)
             const heightTextY = y + height / 2 + 5;
@@ -275,11 +294,11 @@ html_code = """
             heightText.textContent = h;
             
             // Position height text background
-            heightTextBg.setAttribute('x', heightTextX - 15);
-            heightTextBg.setAttribute('y', heightTextY - 16);
-            heightTextBg.setAttribute('width', 30);
-            heightTextBg.setAttribute('height', 22);
-            heightTextBg.setAttribute('rx', 4);
+            heightTextBg.setAttribute('x', heightTextX - bgPadding);
+            heightTextBg.setAttribute('y', heightTextY - bgHeight + 6);
+            heightTextBg.setAttribute('width', bgWidth);
+            heightTextBg.setAttribute('height', bgHeight);
+            heightTextBg.setAttribute('rx', 3);
             
             // Update area text (center)
             areaText.setAttribute('x', x + width / 2);
@@ -389,4 +408,4 @@ html_code = """
 """
 
 # Vis komponenten
-components.html(html_code, height=700, scrolling=False)
+components.html(html_code, height=700, scrolling=False, key=f"grid_{grid_size}")
