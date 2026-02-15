@@ -38,7 +38,7 @@ html_code = """
         }
         .grid-line {
             stroke: #000000;
-            stroke-width: 5;
+            stroke-width: 3;
         }
         .rectangle {
             fill: #FAF5C0;
