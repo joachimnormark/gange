@@ -48,7 +48,7 @@ html_code = """
             stroke-width: 1;
         }
         .rectangle {
-            fill: rgba(66, 133, 244, 0.2);
+            fill: #FAF5C0;
             stroke: #FAF5C0;
             stroke-width: 3;
         }
