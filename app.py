@@ -303,7 +303,7 @@ html_code = f"""
             // Update area text (center)
             areaText.setAttribute('x', x + width / 2);
             areaText.setAttribute('y', y + height / 2 + 7);
-            areaText.textContent = `${{w}} × ${{h}} = ${{w * h}}`;
+          //  areaText.textContent = `${{w}} × ${{h}} = ${{w * h}}`;
         }}
 
         // Handle drag start
