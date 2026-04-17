@@ -64,7 +64,7 @@ html_code = f"""<!DOCTYPE html>
   .dim-text   {{ font-weight:bold; fill:#333; text-anchor:middle;
                  pointer-events:none; user-select:none; }}
   .dim-bg     {{ fill:white; stroke:white; stroke-width:4; pointer-events:none; }}
-  .tick       {{ stroke:#4285f4; stroke-width:10; pointer-events:none; }}
+  .tick       {{ stroke:#4285f4; stroke-width:6; pointer-events:none; }}
 </style>
 </head>
 <body>
