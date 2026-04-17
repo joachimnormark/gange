@@ -79,7 +79,7 @@ const GROWS      = {grid_rows};
 const CELL       = {CELL};
 const IS_OMKREDS = {is_omkreds};
 const FONT       = 14;
-const CR         = 7;     // corner radius
+const CR         = 3;     // corner radius
 const TICK_HALF  = 4.5;   // 9 px tick / 2  (= 3 × blå stroke-width 3)
 const LABEL_OFF  = 22;    // afstand fra rektangel til label
 
