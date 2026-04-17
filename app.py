@@ -59,7 +59,7 @@ html_code = f"""<!DOCTYPE html>
   }}
   .grid-line  {{ stroke:#000; stroke-width:1; }}
   .rectangle  {{ fill:rgba(250,245,192,.5); stroke:#4285f4; stroke-width:3; }}
-  .corner     {{ fill:#4285f4; stroke:white; stroke-width:2; cursor:pointer; }}
+  .corner     {{ fill:#4285f4; stroke:white; stroke-width:4; cursor:pointer; }}
   .corner:hover, .corner.dragging {{ fill:#1a73e8; }}
   .dim-text   {{ font-weight:bold; fill:#333; text-anchor:middle;
                  pointer-events:none; user-select:none; }}
