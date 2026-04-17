@@ -99,9 +99,9 @@ html_code = f"""
         const CELL_SIZE = SVG_SIZE / GRID_SIZE;
         
         // Scale text sizes based on grid size
-        const BASE_FONT_SIZE = GRID_SIZE === 10 ? 16 : (GRID_SIZE === 20 ? 12 : 10);
-        const AREA_FONT_SIZE = GRID_SIZE === 10 ? 20 : (GRID_SIZE === 20 ? 14 : 11);
-        const CORNER_RADIUS = GRID_SIZE === 10 ? 8 : (GRID_SIZE === 20 ? 6 : 5);
+        //const BASE_FONT_SIZE = GRID_SIZE === 10 ? 16 : (GRID_SIZE === 20 ? 12 : 10);
+        //const AREA_FONT_SIZE = GRID_SIZE === 10 ? 20 : (GRID_SIZE === 20 ? 14 : 11);
+        //const CORNER_RADIUS = GRID_SIZE === 10 ? 8 : (GRID_SIZE === 20 ? 6 : 5);
         
         // State - start med 5×5 rektangel centreret
         const startOffset = Math.floor((GRID_SIZE - 5) / 2);
